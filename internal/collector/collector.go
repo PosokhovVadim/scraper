@@ -5,13 +5,14 @@ import (
 )
 
 type Collector struct {
-	C    *colly.Collector
-	Data []byte
+	C *colly.Collector
 }
 
-func CollectorInit() *Collector {
+func CollectorInit(allowedDomains []string, cacheDir string) *Collector {
 	return &Collector{
-		C: colly.NewCollector(),
+		C: colly.NewCollector(
+			colly.AllowedDomains(allowedDomains...),
+			colly.CacheDir(cacheDir),
+		),
 	}
-
 }
